@@ -19,6 +19,12 @@ jobs:
         with:
           workspaces: src-tauri
 
+      - name: Stage web assets into ui/
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force ui | Out-Null
+          Copy-Item index.html, app.js, style.css ui/
+
       - name: Build Tauri app (MSI + NSIS)
         uses: tauri-apps/tauri-action@v0
         env:

@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "identifier": "app.voicenote.desktop",
   "build": {
-    "frontendDist": "../"
+    "frontendDist": "../ui"
   },
   "app": {
     "windows": [
