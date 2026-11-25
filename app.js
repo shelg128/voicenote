@@ -126,7 +126,10 @@ async function ensureModel() {
   if (transcriber) return transcriber;
   if (transcriberLoading) return transcriberLoading;
   transcriberLoading = (async () => {
-    const { pipeline } = await import(TRANSFORMERS_URL);
+    const { pipeline, env } = await import(TRANSFORMERS_URL);
+    /* Jangan coba muat model dari jalur lokal aplikasi (di Tauri mengembalikan
+       index.html, bukan JSON). Selalu ambil dari Hugging Face lalu cache. */
+    env.allowLocalModels = false;
     transcriber = await pipeline("automatic-speech-recognition", WHISPER_MODEL, {
       quantized: true,
       progress_callback: (p) => {
